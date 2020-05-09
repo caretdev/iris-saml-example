@@ -1,0 +1,14 @@
+version: '2.4'
+services:
+  iris:
+    build: .
+    ports: 
+      - 19091:51773
+      - 19092:52773
+    volumes: 
+      - data:/opt/irisapp/data
+      - code:/opt/irisapp/code
+      - ./logs:/opt/irisapp/logs
+volumes: 
+  data: 
+  code: 

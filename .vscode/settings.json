@@ -1,0 +1,12 @@
+{
+  "objectscript.conn": {
+    "active": true,
+    "ns": "IRISAPP",
+    "docker-compose": {
+      "service": "iris",
+    },
+    "links": {
+      "MyApp": "http://${host}:${port}/csp/irisapp/MyApp.cls"
+    }
+  }
+}
