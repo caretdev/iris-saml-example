@@ -160,7 +160,7 @@ ClassMethod LoadMetadata(pStream As %Stream) As %Status
   Quit $$$OK
 }
 
-ClassMethod ConstructRequest(acsUrl As %String) As %String
+ClassMethod ConstructRequest() As %String
 {
   Set instanceId = ##class(%SYS.System).InstanceGUID()
   Set spEntityId = "https://intersystems.com/saml/"_instanceId
@@ -216,7 +216,6 @@ ClassMethod ConstructRequest(acsUrl As %String) As %String
 ClassMethod ActivateDelegated() As %Status
 {
   New $Namespace
-  Set namespace = $Namespace
   Set msgGlobal = ##class(%GlobalEdit).Open("IRIS.Msg")
   Set resource = $$$DBDEFAULTResourceName
   If $IsObject(msgGlobal) {
