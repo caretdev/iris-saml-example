@@ -1,12 +1,14 @@
 {
   "objectscript.conn": {
     "active": true,
-    "ns": "IRISAPP",
+    "ns": "USER",
+    "username": "_SYSTEM",
+    "password": "SYS",
     "docker-compose": {
       "service": "iris",
     },
     "links": {
-      "MyApp": "http://${host}:${port}/csp/irisapp/MyApp.cls"
+      "MyApp": "http://${host}:${port}/saml-example/caretdev.examles.saml.MyApp.cls"
     }
   }
 }

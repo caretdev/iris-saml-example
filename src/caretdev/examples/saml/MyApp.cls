@@ -1,6 +1,6 @@
 Include (%occSAX, %soap)
 
-Class User.MyApp Extends %CSP.Page
+Class caretdev.examples.saml.MyApp Extends %CSP.Page
 {
 
 Parameter SettingsGN = "^SAMLSettings";
@@ -209,6 +209,28 @@ ClassMethod ConstructRequest(acsUrl As %String) As %String
   Set tSAMLRequest = $System.Encryption.Base64Encode(tXMLString, 1)
 
   Quit tSAMLRequest
+}
+
+/// Enable Delegated Auth system-wide
+/// And add role to CSPSystem, so, it will have access to do delegated auth
+ClassMethod ActivateDelegated() As %Status
+{
+  New $Namespace
+  Set namespace = $Namespace
+  Set msgGlobal = ##class(%GlobalEdit).Open("IRIS.Msg")
+  Set resource = $$$DBDEFAULTResourceName
+  If $IsObject(msgGlobal) {
+    Set resource = msgGlobal.ResourceName
+  }
+  Set $Namespace = "%SYS"
+  $$$QuitOnError(##class(Security.System).Get(, .p))
+  Set p("AutheEnabled") = $ZBoolean(p("AutheEnabled"), $$$AutheDelegated, 7)
+  $$$QuitOnError(##class(Security.System).Modify(, .p))
+  $$$QuitOnError(##class(Security.Users).AddRoles("CSPSystem", "%DB_IRISLIB"))
+  If (resource '= "") {
+    $$$QuitOnError(##class(Security.Users).AddRoles("CSPSystem", resource))
+  }
+  Quit $$$OK
 }
 
 }

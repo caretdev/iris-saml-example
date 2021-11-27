@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+  <Document name="saml-example.ZPM">
+    <Module>
+      <Name>saml-example</Name>
+      <Version>0.0.1</Version>
+      <Keywords>auth,saml</Keywords>
+      <Description>Example of using SAML authentication in IRIS</Description>
+      <Packaging>module</Packaging>
+      <Resource Name="caretdev.examples.saml.PKG"/>
+      <SourcesRoot>src</SourcesRoot>
+      <CSPApplication 
+        Url="/saml-example" 
+        Path="/web"
+        Directory="${cspdir}/saml-example" 
+        ServeFiles="1" 
+        Recurse="1" 
+        MatchRoles="${dbrole}" 
+        PasswordAuthEnabled="1"
+        DelegatedAuthEnabled="1"
+        LoginClass="caretdev.examples.saml.MyApp.cls"
+      />
+      <Invoke Class="%EnsembleMgr" Method="EnableNamespace" CheckStatus="1">
+        <Arg>${namespace}</Arg>
+      </Invoke>
+      <Invoke Class="caretdev.examples.saml.MyApp" Method="ActivateDelegated" CheckStatus="1"/>
+    </Module>
+  </Document>
+</Export>
